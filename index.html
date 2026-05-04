@@ -536,7 +536,43 @@ function buildEmojiPicker() {
 // ═══════════════════════════════
 //  SAVE PRODUCT
 // ═══════════════════════════════
-function saveProduct() {
+function addProduct() {
+  var name  = document.getElementById('p-name').value.trim();
+  var price = document.getElementById('p-price').value.trim();
+  var oldP  = document.getElementById('p-old')?.value.trim();
+  var cat   = document.getElementById('p-cat').value.trim();
+  var badge = document.getElementById('p-badge').value.trim();
+  var emoji = document.getElementById('p-emoji').value.trim() || selEmoji;
+  var color = document.getElementById('p-color')?.value || '#ffffff';
+
+  // Basic validation
+  if (!name || !price) {
+    showToast("Please fill name and price");
+    return;
+  }
+
+  var product = {
+    id: Date.now(),
+    name: name,
+    price: Number(price) || 0,
+    oldPrice: oldP ? Number(oldP) : null,
+    category: cat,
+    badge: badge,
+    emoji: emoji,
+    color: color
+  };
+
+  products.push(product);
+  localStorage.setItem('lv_products', JSON.stringify(products));
+
+  showToast("Product added ✅");
+  renderProducts();
+
+  // Clear inputs (optional)
+  document.getElementById('p-name').value = '';
+  document.getElementById('p-price').value = '';
+}
+  function saveProduct() {
   var name  = document.getElementById('p-name').value.trim();
   var price = document.getElementById('p-price').value.trim();
   var oldP  = document.getElementById('p-old').value.trim();
@@ -544,6 +580,7 @@ function saveProduct() {
   var badge = document.getElementById('p-badge').value.trim();
   var emoji = document.getElementById('p-emoji').value.trim() || selEmoji;
   var color = document.getElementById('p-color').value;
+  var image = document.getElementById('p-image').value.trim();
 
   if (!name)  { showToast('⚠ Please enter a product name!'); document.getElementById('p-name').focus(); return; }
   if (!price) { showToast('⚠ Please enter a price!'); document.getElementById('p-price').focus(); return; }
