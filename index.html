@@ -396,19 +396,21 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.65);padding:3rem 3rem
           <input class="fi" id="p-old" type="number" min="1" placeholder="1899" autocomplete="off"/>
         </div>
       </div>
-      <div class="fg">
-        <label>Category</label>
-        <input class="fi" id="p-cat" placeholder="e.g. Dresses · Summer" autocomplete="off"/>
-      </div>
-      <div class="fg">
-        <label>Badge</label>
-        <input class="fi" id="p-badge" placeholder="New / Trending / Sale" autocomplete="off"/>
-      </div>
-      <div class="fg">
-        <label>Product Emoji — click to pick</label>
-        <div class="ep" id="emoji-picker"></div>
-        <input class="fi" id="p-emoji" placeholder="Selected emoji appears here" style="margin-top:.5rem" readonly/>
-      </div>
+ <div class="fg">
+  <label>Badge</label>
+  <input class="fi" id="p-badge" placeholder="New / Trending / Sale" autocomplete="off"/>
+</div>
+
+<div class="fg">
+  <label>Product Image URL</label>
+  <input class="fi" id="p-image" placeholder="https://example.com/product.jpg"/>
+</div>
+
+<div class="fg">
+  <label>Product Emoji — click to pick</label>
+  <div class="ep" id="emoji-picker"></div>
+  <input class="fi" id="p-emoji" placeholder="Selected emoji appears here" style="margin-top:.5rem" readonly/>
+</div>   
       <div class="fg">
         <label>Background Color</label>
         <select class="fs" id="p-color">
@@ -450,6 +452,14 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.65);padding:3rem 3rem
 // ═══════════════════════════════
 //  STATE
 // ═══════════════════════════════
+  function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 var products = JSON.parse(localStorage.getItem('lv_products') || '[]');
 var cart     = JSON.parse(localStorage.getItem('lv_cart')     || '[]');
 var selEmoji = '👗';
