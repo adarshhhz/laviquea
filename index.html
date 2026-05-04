@@ -726,7 +726,19 @@ function updateBadge() {
 // ═══════════════════════════════
 function openCart()  { document.getElementById('cart-sidebar').classList.add('open'); document.getElementById('cart-overlay').classList.add('open'); }
 function closeCart() { document.getElementById('cart-sidebar').classList.remove('open'); document.getElementById('cart-overlay').classList.remove('open'); }
-function openAdmin() { renderAdminList(); document.getElementById('admin-modal').classList.add('open'); document.getElementById('admin-overlay').classList.add('open'); }
+function openAdmin() {
+  var password = prompt('Enter Admin Password');
+
+  if(password !== 'LaviqueaAdmin123') {
+    showToast('❌ Wrong password');
+    return;
+  }
+
+  renderAdminList();
+
+  document.getElementById('admin-modal').classList.add('open');
+  document.getElementById('admin-overlay').classList.add('open');
+}
 function closeAdmin(){ document.getElementById('admin-modal').classList.remove('open'); document.getElementById('admin-overlay').classList.remove('open'); }
 function openCheckout() {
   if (!cart.length) return;
